@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Books JSON</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  <h1>Check the Console (F12)</h1>
+
+  <script>
+    $.getJSON("books.json", function (data) {
+      // (a) Title of the first book
+      console.log("Title of first book: " + data.books[0].title);
+
+      // (b) Author of the second book
+      console.log("Author of second book: " + data.books[1].author);
+
+      // (c) Genres of all books
+      $.each(data.books, function (index, book) {
+        console.log(book.title + " genres: " + book.genres.join(", "));
+      });
+    });
+  </script>
+</body>
+</html>
