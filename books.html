@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Books JSON</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Books (JSON + jQuery)</h1>
+
+  <h3>(a) Title of the first book</h3>
+  <p id="firstTitle"></p>
+
+  <h3>(b) Author of the second book</h3>
+  <p id="secondAuthor"></p>
+
+  <h3>(c) Genres of all books</h3>
+  <ul id="genreList"></ul>
+
+  <script>
+    $.getJSON("books.json", function (data) {
+      var books = data.books;
+
+      // (a) Title of the first book
+      console.log("Title of first book: " + books[0].title);
+      $("#firstTitle").text(books[0].title);
+
+      // (b) Author of the second book
+      console.log("Author of second book: " + books[1].author);
+      $("#secondAuthor").text(books[1].author);
+
+      // (c) Genres of all books
+      $.each(books, function (index, book) {
+        var genres = book.genres.join(", ");
+        console.log(book.title + " genres: " + genres);
+        $("#genreList").append("<li><b>" + book.title + ":</b> " + genres + "</li>");
+      });
+    }).fail(function () {
+      console.log("Could not load books.json - open via http://localhost, not file://");
+    });
+  </script>
+</body>
+</html>
